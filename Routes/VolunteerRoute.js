@@ -4,9 +4,9 @@ const router = express.Router();
 const VolunteerController = require("../Controllers/VolunteerController");
 
 router.get("/", (req, res) => {
+  console.log("route");
   VolunteerController.getVolunteers(req, res);
 });
-
 router.get("/:id", (req, res) => {
   VolunteerController.getVolunteersById(req, res);
 });

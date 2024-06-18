@@ -14,7 +14,7 @@ exports.getVolunteersById = async (req, res) => {
 exports.getVolunteers = async (req, res) => {
   try {
     const volunteers = await volunteerService.getVolunteers();
-    res.json(volunteers);
+    return res.json(volunteers);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -23,6 +23,7 @@ exports.getVolunteers = async (req, res) => {
 exports.CreateNewVolunteer = async (req, res) => {
   try {
     const newVolunteer = await volunteerService.CreateNewVolunteer(req.body);
+    console.log("newVolunteer");
     res.json(newVolunteer);
   } catch (err) {
     res.status(500).json({ message: err.message });

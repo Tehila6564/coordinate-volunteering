@@ -1,12 +1,11 @@
-const express = require("express");
+import express from "express";
+import { configDotenv } from "dotenv";
+import volunteerRouter from "./Routes/VolunteerRoute.js";
+import helpRequestRouter from "./Routes/HelpRequestRoute.js";
 
-const volunteerRouter = require("./Routes/VolunteerRoute");
-const helpRequestRouter = require("./Routes/HelpRequestRoute");
-
+configDotenv();
 const app = express();
 const PORT = process.env.PORT || 3000;
-
-
 
 app.use(express.json());
 app.use("/volunteer", volunteerRouter);

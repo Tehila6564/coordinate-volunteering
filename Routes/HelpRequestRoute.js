@@ -1,17 +1,16 @@
-const express = require('express');
+import express from "express";
 const router = express.Router();
 
+import HelpRequestrController from "../Controllers/HelpRequestController.js";
 
-const HelpRequestrController = require('../Controllers/HelpRequestController');
-router.get('/', (req, res) => {
-    HelpRequestrController.getAll()
+router.get("/", (req, res) => {
+  HelpRequestrController.getAll(req, res);
+});
+router.get("/:id", (req, res) => {
+  HelpRequestrController.getById(req, res);
+});
+router.put("/", (req, res) => {
+  HelpRequestrController.update(req, res);
 });
 
-router.get('/:id', (req, res) => {
-    HelpRequestrController.getById(req.params.id);
-});
-
-
-
-
-module.exports = router;
+export default router;

@@ -1,12 +1,21 @@
-const mongoose = require('mongoose');
+import mongoose  from "mongoose";
 
-const helpRequestSchema = new mongoose.Schema({
-    title: String,
-    description: String,
-    location: String,
-    urgency: String
+const Schema = mongoose.Schema;
+const helpRequestSchema = new Schema({
+  _id: String,
+  location: Object,
+  problem_description: String,
+  contact_phone_number: String,
+  status: String,
+  number_of_people_stuck: Number,
+  priority: Object,
+  volunteer_code: String,
 });
 
-const HelpRequest = mongoose.model('HelpRequest', helpRequestSchema);
+const HelpRequest = mongoose.model(
+  "HelpRequest",
+  helpRequestSchema,
+  "HelpRequest"
+);
 
-module.exports = HelpRequest;
+export default HelpRequest;

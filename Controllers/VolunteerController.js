@@ -1,31 +1,20 @@
-const volunteerService = require("../Services/VolunteerService");
+import volunteerService from "../Services/VolunteerService.js";
+import BaseController from "./BaseController.js";
 
-exports.getVolunteersById = async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    const volunteers = await volunteerService.getVolunteersById(id);
-    res.json(volunteers);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+class VolunteerController extends BaseController {
+  constructor(volunteerService) {
+    super(volunteerService);
   }
-};
 
-exports.getVolunteers = async (req, res) => {
-  try {
-    const volunteers = await volunteerService.getVolunteers();
-    return res.json(volunteers);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+  async CreateNewVolunteer(req, res) {
+    try {
+      const newVolunteer = await volunteerService.CreateNewVolunteer(req.body);
+      console.log("newVolunteer controller");
+      return res.status(200).json(newVolunteer);
+    } catch (err) {
+      console.log("error create controller");
+      res.status(500).json({ message: err.message });
+    }
   }
-};
-
-exports.CreateNewVolunteer = async (req, res) => {
-  try {
-    const newVolunteer = await volunteerService.CreateNewVolunteer(req.body);
-    console.log("newVolunteer");
-    res.json(newVolunteer);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
+}
+export default VolunteerController;

@@ -1,21 +1,18 @@
-const HelpRequestService = require("../Services/HelpRequestService");
+import HelpRequestService from "../Services/HelpRequestService.js";
+import BaseController from "./BaseController.js";
 
-exports.getById = async (req, res) => {
-    const { Id } = req.params;
-  
+class HelpRequestController extends BaseController {
+  constructor(HelpRequestService) {
+    super(HelpRequestService);
+  }
+  async update(req, res, next) {
+    const { id } = req.params;
     try {
-      const helpRequest = await HelpRequestService.getById(Id);
-      res.json(helpRequest);
-    } catch (err) {
-      res.status(500).json({ message: err.message });
+      const response = await HelpRequestService.update(id, req.body);
+      return res.status(200).json(response);
+    } catch (e) {
+      next(e);
     }
-  };
-  
-  exports.GatAll = async (req, res) => {
-    try {
-      const helpRequest = await HelpRequestService.GetAll()
-      res.json(helpRequest);
-    } catch (err) {
-      res.status(500).json({ message: err.message });
-    }
-  };
+  }
+}
+export default HelpRequestController;

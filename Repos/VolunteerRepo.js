@@ -1,8 +1,8 @@
-const volunteer = require("../Models/volunteerModel");
-const connectDB = require("../db");
+import volunteer from"../Models/volunteerModel.js";
+import connectDB from "../db.js";
+
 class VolunteerRepo {
-  constructor(volunteer) {
-    this.volunteer = volunteer;
+  constructor() {
     connectDB();
   }
 
@@ -19,23 +19,30 @@ class VolunteerRepo {
 
   async getVolunteerById(id) {
     try {
-      const volunteer = await volunteer.findById(id);
-      return volunteer;
+      const vol = await volunteer.findById(id);
+      if (!vol) {
+        let error = new Error("There is no this user");
+        error.code = 404;
+        throw error;
+      }
+      return vol;
     } catch (error) {
       throw new Error("Could not find volunteer");
     }
   }
-
   async createNewVolunteer(volunteerData) {
     try {
-      const newVolunteer = new volunteer(volunteerData);
-      const savedVolunteer = await newVolunteer.save();
-      console.log(`created newVolunteer: ${newVolunteer}`);
-      return savedVolunteer;
-    } catch (error) {
-      throw new Error("Could not create new volunteer");
+      const newVolunteer = await volunteer.create(volunteerData);
+      if (newVolunteer) {
+        console.log(`created newVolunteer: ${newVolunteer}`);
+        return newVolunteer.id;
+      } else {
+        throw new Error("there is no data for this request");
+      }
+    } catch (errors) {
+      throw errors;
     }
   }
 }
 
-module.exports = new VolunteerRepo(volunteer);
+export default VolunteerRepo;

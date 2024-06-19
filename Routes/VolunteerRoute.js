@@ -1,18 +1,17 @@
-const express = require("express");
-const router = express.Router();
+import express from "express";
+import VolunteerController from "../Controllers/VolunteerController.js";
 
-const VolunteerController = require("../Controllers/VolunteerController");
+const router = express.Router();
 
 router.get("/", (req, res) => {
   console.log("route");
-  VolunteerController.getVolunteers(req, res);
+  VolunteerController.getAll;
 });
 router.get("/:id", (req, res) => {
-  VolunteerController.getVolunteersById(req, res);
+  VolunteerController.getById(req, res);
 });
 
 router.post("/", (req, res) => {
   VolunteerController.CreateNewVolunteer(req, res);
 });
-
-module.exports = router;
+export default router;

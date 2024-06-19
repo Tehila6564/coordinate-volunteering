@@ -1,16 +1,17 @@
-const mongoose = require("mongoose");
-
-const volunteerSchema = new mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
-  volunteer_code: String,
-  name: {
+import mongoose from "mongoose";
+const Schema = mongoose.Schema;
+const volunteerSchema = new Schema(
+  {
+    _id: mongoose.Schema.Types.ObjectId,
+    volunteer_code: String,
     first_name: String,
     last_name: String,
+    phone_number: String,
+    internship_types: Array,
   },
-  phone_number: String,
-  internship_types: [String],
-});
+  { versionKey: false }
+);
 
 const Volunteer = mongoose.model("Volunteer", volunteerSchema, "Volunteers");
 
-module.exports = Volunteer;
+export default Volunteer;

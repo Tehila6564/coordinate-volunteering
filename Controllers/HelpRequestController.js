@@ -7,11 +7,13 @@ class HelpRequestController extends BaseController {
   }
   async update(req, res, next) {
     const { id } = req.params;
+    let id_vol = req.body;
     try {
-      const response = await HelpRequestService.update(id, req.body);
+      const response = await HelpRequestService.update(id, id_vol);
       return res.status(200).json(response);
     } catch (e) {
-    console.log(e);
+      next(e);
+      console.log(e);
     }
   }
 }

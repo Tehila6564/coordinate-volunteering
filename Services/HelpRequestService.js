@@ -5,9 +5,9 @@ class HelpRequestService extends BaseService {
     super(HelpRequest);
   }
 
-  async update(id, data) {
+  async update(id, id_vol) {
     try {
-      return await HelpRequest.update(id, data);
+      return await HelpRequest.update(id, id_vol);
     } catch (errors) {
       console.log(errors);
       throw new Error("unable to update request.");

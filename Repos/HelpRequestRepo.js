@@ -8,9 +8,7 @@ class HelpRequstRepo {
   //unAnswer
   async gatAll() {
     try {
-      const help = await helpRequst
-        .aggregate([{ $match: { status: "waiting" } }])
-        .exec();
+      const help = await helpRequst.find({ status: "1" }).exec();
 
       if (!help) {
         let error = new Error("There is no this unanswer request");
@@ -22,13 +20,14 @@ class HelpRequstRepo {
       throw new Error("Could not find unanswereHlpRequest");
     }
   }
-  async update(id, data) {
+  //המתנדב לוקח את הבקשה
+  async update(id, id_vol) {
     try {
       let req = await helpRequst.findByIdAndUpdate(
         { _id: id },
         {
-          statusCode: 2,
-          volenteerCode: data.id,
+          status: 2,
+          volunteer_code: id_vol,
         }
       );
       return req;
@@ -39,6 +38,7 @@ class HelpRequstRepo {
       );
     }
   }
+  //ע"י מזהה הבקשה
   async gatById(id) {
     try {
       const ById = await helpRequst.find([{ _id: id }]).exec();
@@ -54,4 +54,4 @@ class HelpRequstRepo {
     }
   }
 }
-export default HelpRequstRepo;
+export default new HelpRequstRepo(helpRequst);

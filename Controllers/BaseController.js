@@ -8,8 +8,7 @@ class BaseController {
 
   async getAll(req, res) {
     try {
-      const r = req.query;
-      const get = await this.Service.getAll(r);
+      const get = await this.Service.getAll();
       console.log("getAll");
       return res.json(get);
     } catch (err) {

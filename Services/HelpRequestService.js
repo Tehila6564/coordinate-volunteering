@@ -1,9 +1,17 @@
 import HelpRequest from "../Repos/HelpRequestRepo.js";
+import BaseService from "./BaseService.js";
+class HelpRequestService extends BaseService {
+  constructor(HelpRequest) {
+    super(HelpRequest);
+  }
 
-class HelpRequestService {
-  GatHelpRequestUnanswer = async () => {
-    console.log("help service");
-    return HelpRequest.GatHelpRequestUnanswer();
-  };
+  async update(id, data) {
+    try {
+      return await HelpRequest.update(id, data);
+    } catch (errors) {
+      console.log(errors);
+      throw new Error("unable to update request.");
+    }
+  }
 }
-export default HelpRequestService;
+export default new HelpRequestService(HelpRequest);

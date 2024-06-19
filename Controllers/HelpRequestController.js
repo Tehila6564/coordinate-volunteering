@@ -11,8 +11,8 @@ class HelpRequestController extends BaseController {
       const response = await HelpRequestService.update(id, req.body);
       return res.status(200).json(response);
     } catch (e) {
-      next(e);
+    console.log(e);
     }
   }
 }
-export default HelpRequestController;
+export default new HelpRequestController(HelpRequestService);

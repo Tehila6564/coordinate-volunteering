@@ -1,15 +1,17 @@
 import Volunteer from "../Repos/VolunteerRepo.js";
-class VolunteerService {
-  getVolunteersById = async (Id) => {
-    console.log("Volunteers service" + Id);
-    return Volunteer.getVolunteerById(Id);
-  };
-  CreateNewVolunteer = async (volunteerData) => {
-    console.log("Volunteers service");
-    return await Volunteer.createNewVolunteer(volunteerData);
-  };
-  getVolunteers = async () => {
-    return await Volunteer.getVolunteers();
-  };
+import BaseService from "./BaseService.js";
+
+class VolunteerService extends BaseService {
+  constructor(Volunteer) {
+    super(Volunteer);
+  }
+  async Create(volunteerData) {
+    try {
+      console.log("Volunteers service");
+      return await Volunteer.create(volunteerData);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 }
-export default VolunteerService;
+export default new VolunteerService(Volunteer);

@@ -1,15 +1,17 @@
-import autobind from "autobind-decorator";
+import autoBind from "auto-bind";
 
 class BaseController {
-  constructor() {
-    autobind(this);
+  constructor(Service) {
+    this.Service = Service;
+    autoBind(this);
   }
 
   async getAll(req, res) {
     try {
-      const volunteers = await this.Service.getAll();
+      const r = req.query;
+      const get = await this.Service.getAll(r);
       console.log("getAll");
-      return res.json(volunteers);
+      return res.json(get);
     } catch (err) {
       res.status(500).json({ message: err.message });
     }
@@ -19,7 +21,7 @@ class BaseController {
     console.log(" controller getbyid" + id);
     try {
       const responce = await this.Service.getById(id);
-      res.json(responce);
+      return res.json(responce);
     } catch (err) {
       res.status(500).json({ message: err.message });
     }

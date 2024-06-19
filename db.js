@@ -1,15 +1,18 @@
 import mongoose from "mongoose";
+import { configDotenv } from "dotenv";
+configDotenv();
 
-const connectDB = async () => {
+export default async function connect() {
   try {
-    await mongoose.connect(
-      "mongodb+srv://tehila6564:Htbu8GeIfPTRqz2r@helprequest.xmuthgs.mongodb.net/Volunteer-coordinationDB"
-    );
-    console.log("MongoDB connected successfully");
-  } catch (error) {
-    console.error("Error connecting to MongoDB:", error.message);
-    process.exit(1);
+    await mongoose.connect(process.env.CONN_STRING);
+  } catch (err) {
+    console.log(err.message);
+    throw new Error("unable to connect to mongoDB: ");
   }
-};
 
-export default connectDB;
+  const db = mongoose.connection;
+  db.on("error", console.error.bind(console, "connection error:"));
+  db.once("open", function () {
+    console.log("Connected to MongoDB");
+  });
+}

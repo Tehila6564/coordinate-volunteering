@@ -1,12 +1,13 @@
-import volunteer from"../Models/volunteerModel.js";
-import connectDB from "../db.js";
+import volunteer from "../Models/volunteerModel.js";
+import connect from "../db.js";
 
 class VolunteerRepo {
-  constructor() {
-    connectDB();
+  constructor(volunteer) {
+    this.volunteer = volunteer;
+    connect();
   }
 
-  async getVolunteers() {
+  async getAll() {
     try {
       const volunteers = await volunteer.find({}).exec();
       console.log(`len:${volunteers.length}`);
@@ -17,7 +18,7 @@ class VolunteerRepo {
     }
   }
 
-  async getVolunteerById(id) {
+  async getById(id) {
     try {
       const vol = await volunteer.findById(id);
       if (!vol) {
@@ -30,7 +31,7 @@ class VolunteerRepo {
       throw new Error("Could not find volunteer");
     }
   }
-  async createNewVolunteer(volunteerData) {
+  async create(volunteerData) {
     try {
       const newVolunteer = await volunteer.create(volunteerData);
       if (newVolunteer) {
@@ -45,4 +46,4 @@ class VolunteerRepo {
   }
 }
 
-export default VolunteerRepo;
+export default new VolunteerRepo(volunteer);

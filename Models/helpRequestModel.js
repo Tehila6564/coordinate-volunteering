@@ -1,4 +1,4 @@
-import mongoose  from "mongoose";
+import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 const helpRequestSchema = new Schema({
@@ -9,8 +9,9 @@ const helpRequestSchema = new Schema({
   status: String,
   number_of_people_stuck: Number,
   priority: Object,
-  volunteer_code: String,
-});
+  volunteer_code: String
+ }, { versionKey: false }
+);
 
 const HelpRequest = mongoose.model(
   "HelpRequest",

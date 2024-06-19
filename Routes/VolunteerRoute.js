@@ -3,15 +3,9 @@ import VolunteerController from "../Controllers/VolunteerController.js";
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  console.log("route");
-  VolunteerController.getAll;
-});
-router.get("/:id", (req, res) => {
-  VolunteerController.getById(req, res);
-});
+router.get("/", VolunteerController.getAll);
 
-router.post("/", (req, res) => {
-  VolunteerController.CreateNewVolunteer(req, res);
-});
+router.get("/:id", VolunteerController.getById);
+
+router.post("/", VolunteerController.Create);
 export default router;
